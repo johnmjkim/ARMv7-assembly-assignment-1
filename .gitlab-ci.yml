@@ -3,6 +3,7 @@ image: comp2300/comp2300-ci:2022.0.6
 stages:
   - build
   - test
+  - deploy
 
 build:
   tags:
@@ -49,7 +50,7 @@ design-document-wordcount:
       fi
 
 design-document:
-  stage: build
+  stage: deploy
   image:
     name: pandoc/core:2.17.1.1-alpine
     entrypoint: ["/bin/sh", "-c"]
