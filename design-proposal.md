@@ -1,7 +1,7 @@
 ---
 title: "Design Proposal"
-author: 
-email: 
+author: John (Min Jae), Kim
+email: johnmjkim1216@gmail.com
 ---
 
 <!-- write your design proposal here -->

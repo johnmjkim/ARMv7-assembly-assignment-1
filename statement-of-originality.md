@@ -6,8 +6,8 @@ declaration: >-
   own work, with the following exceptions:
 
 # sign *your* name and uid here
-name: 
-uid: 
+name: John (Min Jae), Kim
+uid: u7269158
 ---
 
 # Collaboration
