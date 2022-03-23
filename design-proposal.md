@@ -13,7 +13,7 @@ The next water drop will be also shown on the front view. But it will change to 
 
 Lastly, the show ends and all lights will be turned-off for several seconds. Then, the LED show will resume by starting back to the first stage.
 
-# How : ARM-v7 assembly
+# How : ARM-v7 Assembly
 
-The project will basically use the address of pins of the micro-bit to load and store the data. This allows me to control a LED light in the intended position of the board. Conditional branch and label will be used to control at what condition, which number of LED pins will be lit up. 
+The project will basically use the address of pins (like P0, P1) of the micro-bit to load and store the data. This allows me to control a LED light in the intended position of the board. Conditional branch and label will be used to control at what condition, which number of LED pins will be lit up. 
 
