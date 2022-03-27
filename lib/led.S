@@ -456,7 +456,6 @@ led_off_r5:
 .size led_off_r5, . -led_off_r5
 
 @ Set bit of ROW 1~5, COL 1~5
-.global led_setbit_r1
 .type led_setbit_r1, %function
 led_setbit_r1:
   ldr r3, =ROW1
@@ -464,7 +463,6 @@ led_setbit_r1:
   bx lr
 .size led_setbit_r1, . -led_setbit_r1
 
-.global led_setbit_r2
 .type led_setbit_r2, %function
 led_setbit_r2:
   ldr r3, =ROW2
@@ -472,7 +470,6 @@ led_setbit_r2:
   bx lr
 .size led_setbit_r2, . -led_setbit_r2
 
-.global led_setbit_r3
 .type led_setbit_r3, %function
 led_setbit_r3:
   ldr r3, =ROW3
@@ -480,7 +477,6 @@ led_setbit_r3:
   bx lr
 .size led_setbit_r3, . -led_setbit_r3
 
-.global led_setbit_r4
 .type led_setbit_r4, %function
 led_setbit_r4:
   ldr r3, =ROW4
@@ -488,7 +484,6 @@ led_setbit_r4:
   bx lr
 .size led_setbit_r4, . -led_setbit_r4
 
-.global led_setbit_r5
 .type led_setbit_r5, %function
 led_setbit_r5:
   ldr r3, =ROW5
@@ -496,7 +491,6 @@ led_setbit_r5:
   bx lr
 .size led_setbit_r5, . -led_setbit_r5
 
-.global led_setbit_c1
 .type led_setbit_c1, %function
 led_setbit_c1:
   ldr r3, =COL1
@@ -504,7 +498,6 @@ led_setbit_c1:
   bx lr
 .size led_setbit_c1, . -led_setbit_c1
 
-.global led_setbit_c2
 .type led_setbit_c2, %function
 led_setbit_c2:
   ldr r3, =COL2
@@ -512,7 +505,6 @@ led_setbit_c2:
   bx lr
 .size led_setbit_c2, . -led_setbit_c2
 
-.global led_setbit_c3
 .type led_setbit_c3, %function
 led_setbit_c3:
   ldr r3, =COL3
@@ -520,7 +512,6 @@ led_setbit_c3:
   bx lr
 .size led_setbit_c3, . -led_setbit_c3
 
-.global led_setbit_c4
 .type led_setbit_c4, %function
 led_setbit_c4:
   ldr r3, =COL4
@@ -528,7 +519,6 @@ led_setbit_c4:
   bx lr
 .size led_setbit_c4, . -led_setbit_c4
 
-.global led_setbit_c5
 .type led_setbit_c5, %function
 led_setbit_c5:
   ldr r3, =COL5
@@ -537,7 +527,6 @@ led_setbit_c5:
 .size led_setbit_c5, . -led_setbit_c5
 
 @ Clear bit of ROW 1~5, COL 1~5
-.global led_clearbit_r1
 .type led_clearbit_r1, %function
 led_clearbit_r1:
   ldr r3, =ROW1
@@ -545,7 +534,6 @@ led_clearbit_r1:
   bx lr
 .size led_clearbit_r1, . -led_clearbit_r1
 
-.global led_clearbit_r2
 .type led_clearbit_r2, %function
 led_clearbit_r2:
   ldr r3, =ROW2
@@ -553,7 +541,6 @@ led_clearbit_r2:
   bx lr
 .size led_clearbit_r2, . -led_clearbit_r2
 
-.global led_clearbit_r3
 .type led_clearbit_r3, %function
 led_clearbit_r3:
   ldr r3, =ROW3
@@ -561,7 +548,6 @@ led_clearbit_r3:
   bx lr
 .size led_clearbit_r3, . -led_clearbit_r3
 
-.global led_clearbit_r4
 .type led_clearbit_r4, %function
 led_clearbit_r4:
   ldr r3, =ROW4
@@ -569,7 +555,6 @@ led_clearbit_r4:
   bx lr
 .size led_clearbit_r4, . -led_clearbit_r4
 
-.global led_clearbit_r5
 .type led_clearbit_r5, %function
 led_clearbit_r5:
   ldr r3, =ROW5
@@ -577,7 +562,6 @@ led_clearbit_r5:
   bx lr
 .size led_clearbit_r5, . -led_clearbit_r5
 
-.global led_clearbit_c1
 .type led_clearbit_c1, %function
 led_clearbit_c1:
   ldr r3, =COL1
@@ -585,7 +569,6 @@ led_clearbit_c1:
   bx lr
 .size led_clearbit_c1, . -led_clearbit_c1
 
-.global led_clearbit_c2
 .type led_clearbit_c2, %function
 led_clearbit_c2:
   ldr r3, =COL2
@@ -593,7 +576,6 @@ led_clearbit_c2:
   bx lr
 .size led_clearbit_c2, . -led_clearbit_c2
 
-.global led_clearbit_c3
 .type led_clearbit_c3, %function
 led_clearbit_c3:
   ldr r3, =COL3
@@ -601,7 +583,6 @@ led_clearbit_c3:
   bx lr
 .size led_clearbit_c3, . -led_clearbit_c3
 
-.global led_clearbit_c4
 .type led_clearbit_c4, %function
 led_clearbit_c4:
   ldr r3, =COL4
@@ -609,130 +590,12 @@ led_clearbit_c4:
   bx lr
 .size led_clearbit_c4, . -led_clearbit_c4
 
-.global led_clearbit_c5
 .type led_clearbit_c5, %function
 led_clearbit_c5:
   ldr r3, =COL5
   bic r2, r2, r3
   bx lr
 .size led_clearbit_c5, . -led_clearbit_c5
-
-@ Time delay
-.global time_delay_1s
-.type time_delay_1s, %function
-@ args:
-@ r0: amount of time
-time_delay_1s:
-  nop
-  ldr r0, =TIME_ONE_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_1s, . -time_delay_1s
-
-.global time_delay_500ms
-.type time_delay_500ms, %function
-@ args:
-@ r0: amount of time
-time_delay_500ms:
-  nop
-  ldr r0, =TIME_FIVEHUNDRED_MILI_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_500ms, . -time_delay_500ms
-
-.global time_delay_200ms
-.type time_delay_200ms, %function
-@ args:
-@ r0: amount of time
-time_delay_200ms:
-  nop
-  ldr r0, =TIME_TWOHUNDRED_MILI_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_200ms, . -time_delay_200ms
-
-.global time_delay_100ms
-.type time_delay_100ms, %function
-@ args:
-@ r0: amount of time
-time_delay_100ms:
-  nop
-  ldr r0, =TIME_HUNDRED_MILI_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_100ms, . -time_delay_100ms
-
-.global time_delay_5ms
-.type time_delay_5ms, %function
-@ args:
-@ r0: amount of time
-time_delay_5ms:
-  nop
-  ldr r0, =TIME_FIVE_MILI_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_5ms, . -time_delay_5ms
-
-.global time_delay_1ms
-.type time_delay_1ms, %function
-@ args:
-@ r0: amount of time
-time_delay_1ms:
-  nop
-  ldr r0, =TIME_ONE_MILI_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_1ms, . -time_delay_1ms
-
-.global time_delay_5us
-.type time_delay_5us, %function
-@ args:
-@ r0: amount of time
-time_delay_5us:
-  nop
-  ldr r0, =TIME_FIVE_MICRO_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_5us, . -time_delay_5us
-
-.global time_delay_1us
-.type time_delay_1us, %function
-@ args:
-@ r0: amount of time
-time_delay_1us:
-  nop
-  ldr r0, =TIME_ONE_MICRO_SEC
-  str lr, [sp]
-  bl time_delay
-  ldr lr, [sp]
-  bx lr
-.size time_delay_1us, . -time_delay_1us
-
-.global time_delay
-.type time_delay, %function
-@ args:
-@ r0: amount of time
-time_delay:
-  nop
-  subs r0, r0, 1
-
-  bpl time_delay
-  bx lr
-.size time_delay, . -time_delay
 
 .data
 
@@ -752,13 +615,3 @@ time_delay:
 .set GPIO_P1, 0x50000300
 .set GPIO_PX_OUT, 0x504     @ index by pin number
 .set GPIO_PX_DIR, 0x514     @ index by pin number
-
-@ Microbit (16MHz) Timer
-.set TIME_ONE_MICRO_SEC, 0x10
-.set TIME_FIVE_MICRO_SEC, 0x50
-.set TIME_ONE_MILI_SEC, 0x3E80
-.set TIME_FIVE_MILI_SEC, 0x13880
-.set TIME_HUNDRED_MILI_SEC, 0x186A00
-.set TIME_TWOHUNDRED_MILI_SEC, 0x20D400
-.set TIME_FIVEHUNDRED_MILI_SEC, 0x7A1200
-.set TIME_ONE_SEC, 0xF42400
