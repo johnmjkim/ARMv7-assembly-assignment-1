@@ -4,6 +4,36 @@
 @ Australian National University
 .syntax unified
 
+.global blink_1s
+.type blink_1s, % function
+blink_1s:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_1s
+  bl led_off
+  bl led_cleardir
+  bl time_delay_1s
+  pop {lr}
+  bx lr
+.size blink_1s, . -blink_1s
+
+.global blink_500ms
+.type blink_500ms, % function
+blink_500ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_500ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_500ms
+  pop {lr}
+  bx lr
+.size blink_500ms, . -blink_500ms
+
 .global blink_200ms
 .type blink_200ms, % function
 blink_200ms:
@@ -18,6 +48,21 @@ blink_200ms:
   pop {lr}
   bx lr
 .size blink_200ms, . -blink_200ms
+
+.global blink_100ms
+.type blink_100ms, % function
+blink_100ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_100ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_100ms
+  pop {lr}
+  bx lr
+.size blink_100ms, . -blink_100ms
 
 @ led row, col set direction
 @ Set ROW DIR
