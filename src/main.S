@@ -41,14 +41,14 @@ main:
   @ bl time_delay_200ms
   @ pop {lr}
 
-  @ mov r6, 0
-  @ push {lr}
-  @ bl wave_22_topview
-  @ pop {lr}
+  mov r6, 0
+  push {lr}
+  bl wave_22_topview
+  pop {lr}
 
-  @ push {lr}
-  @ bl time_delay_200ms
-  @ pop {lr}
+  push {lr}
+  bl time_delay_200ms
+  pop {lr}
 
   @ mov r6, 0
   @ push {lr}
@@ -59,14 +59,14 @@ main:
   @ bl time_delay_200ms
   @ pop {lr}
 
-  mov r6, 0
-  push {lr}
-  bl wave_11_topview
-  pop {lr}
+  @ mov r6, 0
+  @ push {lr}
+  @ bl wave_11_topview
+  @ pop {lr}
 
-  push {lr}
-  bl time_delay_200ms
-  pop {lr}
+  @ push {lr}
+  @ bl time_delay_200ms
+  @ pop {lr}
 
   @ mov r6, 0
   @ push {lr}
@@ -76,6 +76,15 @@ main:
   @ push {lr}
   @ bl time_delay_200ms
   @ pop {lr}
+
+  mov r6, 0
+  push {lr}
+  bl wave_24_topview
+  pop {lr}
+
+  push {lr}
+  bl time_delay_200ms
+  pop {lr}
 
   b main
 

@@ -91,6 +91,196 @@ wave_11_topview:
   bx lr
 .size wave_11_topview, . -wave_11_topview
 
+.global wave_22_topview
+.type wave_22_topview, %function
+wave_22_topview:
+  mov r4, 2
+  mov r5, 2
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_22_1_r
+  ldr r12, =wave_22_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_22_2_r
+  ldr r12, =wave_22_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_22_3_r
+  ldr r12, =wave_22_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_22_4_r
+  ldr r12, =wave_22_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_22_topview, . -wave_22_topview
+
+.global wave_24_topview
+.type wave_24_topview, %function
+wave_24_topview:
+  mov r4, 2
+  mov r5, 4
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_24_1_r
+  ldr r12, =wave_24_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_24_2_r
+  ldr r12, =wave_24_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_24_3_r
+  ldr r12, =wave_24_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_24_4_r
+  ldr r12, =wave_24_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_24_topview, . -wave_24_topview
+
+.global wave_55_topview
+.type wave_55_topview, %function
+wave_55_topview:
+  mov r4, 5
+  mov r5, 5
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_55_1_r
+  ldr r12, =wave_55_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_55_2_r
+  ldr r12, =wave_55_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_55_3_r
+  ldr r12, =wave_55_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_55_4_r
+  ldr r12, =wave_55_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_55_5_r
+  ldr r12, =wave_55_5_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_55_6_r
+  ldr r12, =wave_55_6_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_55_topview, . -wave_55_topview
+
 .type display_wave, % function
 display_wave:
   mov r8, 4
@@ -150,28 +340,85 @@ wave_11_1_r:
   .word 3, 1, 2, 2
 wave_11_1_c:
   .word 3, 2, 1, 2
-
 wave_11_2_r:
   .word 4, 1, 2, 3, 3
 wave_11_2_c:
   .word 4, 3, 3, 2, 1
-
 wave_11_3_r:
   .word 5, 1, 2, 3, 4, 4
 wave_11_3_c:
   .word 5, 4, 4, 3, 2, 1
-
 wave_11_4_r:
   .word 6, 1, 2, 3, 4, 5, 5
 wave_11_4_c:
   .word 6, 5, 5, 4, 3, 2, 1
-
 wave_11_5_r:
   .word 3, 3, 4, 5
 wave_11_5_c:
   .word 3, 5, 4, 3
-
 wave_11_6_r:
   .word 2, 4, 5
 wave_11_6_c:
   .word 2, 5, 4
+
+.data
+wave_22_1_r:
+  .word 8, 1, 1, 1, 2, 2, 3, 3, 3
+wave_22_1_c:
+  .word 8, 1, 2, 3, 1, 3, 1, 2, 3
+wave_22_2_r:
+  .word 6, 1, 2, 3, 4, 4, 4
+wave_22_2_c:
+  .word 6, 4, 4, 4, 3, 2, 1
+wave_22_3_r:
+  .word 7, 1, 2, 3, 4, 5, 5, 5
+wave_22_3_c:
+  .word 7, 5, 5, 5, 4, 3, 2, 1
+wave_22_4_r:
+  .word 2, 4, 5
+wave_22_4_c:
+  .word 2, 5, 4
+
+.data
+wave_24_1_r:
+  .word 8, 1, 1, 1, 2, 2, 3, 3, 3
+wave_24_1_c:
+  .word 8, 3, 4, 5, 3, 5, 3, 4, 5
+wave_24_2_r:
+  .word 6, 1, 2, 3, 4, 4, 4
+wave_24_2_c:
+  .word 6, 2, 2, 2, 3, 4, 5
+wave_24_3_r:
+  .word 7, 1, 2, 3, 4, 5, 5, 5
+wave_24_3_c:
+  .word 7, 1, 1, 1, 2, 3, 4, 5
+wave_24_4_r:
+  .word 2, 4, 5
+wave_24_4_c:
+  .word 2, 1, 2
+
+.data
+wave_55_1_r:
+  .word 3, 4, 4, 5
+wave_55_1_c:
+  .word 3, 4, 5, 4
+wave_55_2_r:
+  .word 4, 3, 3, 4, 5
+wave_55_2_c:
+  .word 4, 4, 5, 3, 3
+wave_55_3_r:
+  .word 5, 2, 2, 3, 4, 5
+wave_55_3_c:
+  .word 5, 5, 4, 3, 2, 2
+wave_55_4_r:
+  .word 6, 1, 1, 2, 3, 4, 5
+wave_55_4_c:
+  .word 6, 5, 4, 3, 2, 1, 1
+wave_55_5_r:
+  .word 3, 1, 2, 3
+wave_55_5_c:
+  .word 3, 3, 2, 1
+wave_55_6_r:
+  .word 2, 1, 2
+wave_55_6_c:
+  .word 2, 2, 1
