@@ -5,455 +5,260 @@
 .syntax unified
 
 @ led row, col set direction
-@ Set ROW1 DIR
-.global led_setdir_r1
-.type led_setdir_r1, %function
-led_setdir_r1:
+@ Set ROW DIR
+@ args :
+@ r4 : ROW
+@ r5 : COL
+.global led_setdir
+.type led_setdir, %function
+led_setdir:
+  bl led_setdir_r
+  bl led_setdir_c
+  bx lr
+.size led_setdir, . -led_setdir
+
+@ led row, col set direction
+@ Clear ROW DIR
+@ args :
+@ r4 : ROW
+@ r5 : COL
+.global led_cleardir
+.type led_cleardir, %function
+led_cleardir:
+  bl led_cleardir_r
+  bl led_cleardir_c
+  bx lr
+.size led_cleardir, . -led_cleardir
+
+@ Set ROW DIR
+@ args :
+@ r4 : ROW
+.global led_setdir_r
+.type led_setdir_r, %function
+led_setdir_r:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_DIR]
 
   str lr, [sp]
-  bl led_setbit_r1
+  cmp r4, #1
+  IT EQ
+  bleq led_setbit_r1
+  cmp r4, #2
+  IT EQ
+  bleq led_setbit_r2
+  cmp r4, #3
+  IT EQ
+  bleq led_setbit_r3
+  cmp r4, #4
+  IT EQ
+  bleq led_setbit_r4
+  cmp r4, #5
+  IT EQ
+  bleq led_setbit_r5
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_r1, . -led_setdir_r1
+.size led_setdir_r, . -led_setdir_r
 
-@ Set ROW2 DIR
-.global led_setdir_r2
-.type led_setdir_r2, %function
-led_setdir_r2:
+@ Clear ROW DIR
+@ args :
+@ r4 : ROW
+.global led_cleardir_r
+.type led_cleardir_r, %function
+led_cleardir_r:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_DIR]
 
   str lr, [sp]
-  bl led_setbit_r2
+  cmp r4, #1
+  IT EQ
+  bleq led_clearbit_r1
+  cmp r4, #2
+  IT EQ
+  bleq led_clearbit_r2
+  cmp r4, #3
+  IT EQ
+  bleq led_clearbit_r3
+  cmp r4, #4
+  IT EQ
+  bleq led_clearbit_r4
+  cmp r4, #5
+  IT EQ
+  bleq led_clearbit_r5
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_r2, . -led_setdir_r2
+.size led_cleardir_r, . -led_cleardir_r
 
-@ Set ROW3 DIR
-.global led_setdir_r3
-.type led_setdir_r3, %function
-led_setdir_r3:
-  ldr r1, =GPIO_P0
+@ Set COL DIR
+@ args :
+@ r5 : COL
+.global led_setdir_c
+.type led_setdir_c, %function
+led_setdir_c:
+  str lr, [sp]
+  cmp r5, #1
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #2
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #3
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #4
+  IT EQ
+  bleq set_GPIO_P1
+  cmp r5, #5
+  IT EQ
+  bleq set_GPIO_P0
+  ldr lr, [sp]
   ldr r2, [r1, GPIO_PX_DIR]
 
   str lr, [sp]
-  bl led_setbit_r3
+  cmp r5, #1
+  IT EQ
+  bleq led_setbit_c1
+  cmp r5, #2
+  IT EQ
+  bleq led_setbit_c2
+  cmp r5, #3
+  IT EQ
+  bleq led_setbit_c3
+  cmp r5, #4
+  IT EQ
+  bleq led_setbit_c4
+  cmp r5, #5
+  IT EQ
+  bleq led_setbit_c5
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_r3, . -led_setdir_r3
+.size led_setdir_c, . -led_setdir_c
 
-@ Set ROW4 DIR
-.global led_setdir_r4
-.type led_setdir_r4, %function
-led_setdir_r4:
-  ldr r1, =GPIO_P0
+@ Clear COL DIR
+@ args :
+@ r5 : COL
+.global led_cleardir_c
+.type led_cleardir_c, %function
+led_cleardir_c:
+  str lr, [sp]
+  cmp r5, #1
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #2
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #3
+  IT EQ
+  bleq set_GPIO_P0
+  cmp r5, #4
+  IT EQ
+  bleq set_GPIO_P1
+  cmp r5, #5
+  IT EQ
+  bleq set_GPIO_P0
+  ldr lr, [sp]
   ldr r2, [r1, GPIO_PX_DIR]
 
   str lr, [sp]
-  bl led_setbit_r4
+  cmp r5, #1
+  IT EQ
+  bleq led_clearbit_c1
+  cmp r5, #2
+  IT EQ
+  bleq led_clearbit_c2
+  cmp r5, #3
+  IT EQ
+  bleq led_clearbit_c3
+  cmp r5, #4
+  IT EQ
+  bleq led_clearbit_c4
+  cmp r5, #5
+  IT EQ
+  bleq led_clearbit_c5
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_r4, . -led_setdir_r4
+.size led_cleardir_c, . -led_cleardir_c
 
-@ Set ROW5 DIR
-.global led_setdir_r5
-.type led_setdir_r5, %function
-led_setdir_r5:
+.type set_GPIO_P0, %function
+set_GPIO_P0:
   ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_r5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_r5, . -led_setdir_r5
+.size set_GPIO_P0, . -set_GPIO_P0
 
-@ Set COL1 DIR
-.global led_setdir_c1
-.type led_setdir_c1, %function
-led_setdir_c1:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_c1
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_setdir_c1, . -led_setdir_c1
-
-@ Set COL2 DIR
-.global led_setdir_c2
-.type led_setdir_c2, %function
-led_setdir_c2:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_c2
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_setdir_c2, . -led_setdir_c2
-
-@ Set COL3 DIR
-.global led_setdir_c3
-.type led_setdir_c3, %function
-led_setdir_c3:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_c3
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_setdir_c3, . -led_setdir_c3
-
-@ Set COL4 DIR
-.global led_setdir_c4
-.type led_setdir_c4, %function
-led_setdir_c4:
+.type set_GPIO_P1, %function
+set_GPIO_P1:
   ldr r1, =GPIO_P1
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_c4
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
   bx lr
-.size led_setdir_c4, . -led_setdir_c4
+.size set_GPIO_P1, . -set_GPIO_P1
 
-@ Set COL5 DIR
-.global led_setdir_c5
-.type led_setdir_c5, %function
-led_setdir_c5:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_setbit_c5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_setdir_c5, . -led_setdir_c5
-
-@ Clear ROW1 DIR
-.global led_cleardir_r1
-.type led_cleardir_r1, %function
-led_cleardir_r1:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_r1
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_r1, . -led_cleardir_r1
-
-@ Clear ROW2 DIR
-.global led_cleardir_r2
-.type led_cleardir_r2, %function
-led_cleardir_r2:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_r2
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_r2, . -led_cleardir_r2
-
-@ Clear ROW3 DIR
-.global led_cleardir_r3
-.type led_cleardir_r3, %function
-led_cleardir_r3:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_r3
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_r3, . -led_cleardir_r3
-
-@ Clear ROW4 DIR
-.global led_cleardir_r4
-.type led_cleardir_r4, %function
-led_cleardir_r4:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_r4
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_r4, . -led_cleardir_r4
-
-@ Clear ROW5 DIR
-.global led_cleardir_r5
-.type led_cleardir_r5, %function
-led_cleardir_r5:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_r5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_r5, . -led_cleardir_r5
-
-@ Clear COL1 DIR
-.global led_cleardir_c1
-.type led_cleardir_c1, %function
-led_cleardir_c1:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_c1
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_c1, . -led_cleardir_c1
-
-@ Clear COL2 DIR
-.global led_cleardir_c2
-.type led_cleardir_c2, %function
-led_cleardir_c2:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_c2
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_c2, . -led_cleardir_c2
-
-@ Clear COL3 DIR
-.global led_cleardir_c3
-.type led_cleardir_c3, %function
-led_cleardir_c3:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_c3
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_c3, . -led_cleardir_c3
-
-@ Clear COL4 DIR
-.global led_cleardir_c4
-.type led_cleardir_c4, %function
-led_cleardir_c4:
-  ldr r1, =GPIO_P1
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_c4
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_c4, . -led_cleardir_c4
-
-@ Clear COL5 DIR
-.global led_cleardir_c5
-.type led_cleardir_c5, %function
-led_cleardir_c5:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_DIR]
-
-  str lr, [sp]
-  bl led_clearbit_c5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_DIR]
-  bx lr
-.size led_cleardir_c5, . -led_cleardir_c5
-
-@ Led ROW1 ON
-.global led_on_r1
-.type led_on_r1, %function
-led_on_r1:
+@ Led ROW1~5 ON
+@ args :
+@ r4 : ROW
+.global led_on
+.type led_on, %function
+led_on:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_OUT]
 
   str lr, [sp]
-  bl led_setbit_r1
+  cmp r4, #1
+  IT EQ
+  bleq led_setbit_r1
+  cmp r4, #2
+  IT EQ
+  bleq led_setbit_r1
+  cmp r4, #3
+  IT EQ
+  bleq led_setbit_r1
+  cmp r4, #4
+  IT EQ
+  bleq led_setbit_r1
+  cmp r4, #5
+  IT EQ
+  bleq led_setbit_r1
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_OUT]
   bx lr
-.size led_on_r1, . -led_on_r1
+.size led_on, . -led_on
 
-@ Led ROW2 ON
-.global led_on_r2
-.type led_on_r2, %function
-led_on_r2:
+@ Led ROW1~5 OFF
+@ args :
+@ r4 : ROW
+.global led_off
+.type led_off, %function
+led_off:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_OUT]
 
   str lr, [sp]
-  bl led_setbit_r2
+  cmp r4, #1
+  IT EQ
+  bleq led_clearbit_r1
+  cmp r4, #2
+  IT EQ
+  bleq led_clearbit_r1
+  cmp r4, #3
+  IT EQ
+  bleq led_clearbit_r1
+  cmp r4, #4
+  IT EQ
+  bleq led_clearbit_r1
+  cmp r4, #5
+  IT EQ
+  bleq led_clearbit_r1
   ldr lr, [sp]
   
   str r2, [r1, GPIO_PX_OUT]
   bx lr
-.size led_on_r2, . -led_on_r2
-
-@ Led ROW3 ON
-.global led_on_r3
-.type led_on_r3, %function
-led_on_r3:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_setbit_r3
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_on_r3, . -led_on_r3
-
-@ Led ROW4 ON
-.global led_on_r4
-.type led_on_r4, %function
-led_on_r4:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_setbit_r4
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_on_r4, . -led_on_r4
-
-@ Led ROW5 ON
-.global led_on_r5
-.type led_on_r5, %function
-led_on_r5:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_setbit_r5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_on_r5, . -led_on_r5
-
-@ Led ROW1 OFF
-.global led_off_r1
-.type led_off_r1, %function
-led_off_r1:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_clearbit_r1
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_off_r1, . -led_off_r1
-
-@ Led ROW2 OFF
-.global led_off_r2
-.type led_off_r2, %function
-led_off_r2:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_clearbit_r2
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_off_r2, . -led_off_r2
-
-@ Led ROW3 OFF
-.global led_off_r3
-.type led_off_r3, %function
-led_off_r3:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_clearbit_r3
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_off_r3, . -led_off_r3
-
-@ Led ROW4 OFF
-.global led_off_r4
-.type led_off_r4, %function
-led_off_r4:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_clearbit_r4
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_off_r4, . -led_off_r4
-
-@ Led ROW5 OFF
-.global led_off_r5
-.type led_off_r5, %function
-led_off_r5:
-  ldr r1, =GPIO_P0
-  ldr r2, [r1, GPIO_PX_OUT]
-
-  str lr, [sp]
-  bl led_clearbit_r5
-  ldr lr, [sp]
-  
-  str r2, [r1, GPIO_PX_OUT]
-  bx lr
-.size led_off_r5, . -led_off_r5
+.size led_off, . -led_off
 
 @ Set bit of ROW 1~5, COL 1~5
 .type led_setbit_r1, %function

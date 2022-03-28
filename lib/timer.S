@@ -120,6 +120,8 @@ time_delay:
   bx lr
 .size time_delay, . -time_delay
 
+.data
+
 @ Microbit (16MHz) Timer
 .set TIME_ONE_MICRO_SEC, 0x10
 .set TIME_FIVE_MICRO_SEC, 0x50
@@ -129,3 +131,13 @@ time_delay:
 .set TIME_TWOHUNDRED_MILI_SEC, 0x20D400
 .set TIME_FIVEHUNDRED_MILI_SEC, 0x7A1200
 .set TIME_ONE_SEC, 0xF42400
+
+@ Set all timers global
+.global TIME_ONE_MICRO_SEC
+.global TIME_FIVE_MICRO_SEC
+.global TIME_ONE_MILI_SEC
+.global TIME_FIVE_MILI_SEC
+.global TIME_HUNDRED_MILI_SEC
+.global TIME_TWOHUNDRED_MILI_SEC
+.global TIME_FIVEHUNDRED_MILI_SEC
+.global TIME_ONE_SEC
