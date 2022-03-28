@@ -1,422 +1,1512 @@
-@ @ led.S
-@ @ led library for the BBC micro:bit v2
+@ @ wave.S
+@ @ wave library for the BBC micro:bit v2
 @ @ By John Kim, 2022
 @ @ Australian National University
 @ .syntax unified
 
-@ @ led row, col set direction
-@ @ Set ROW DIR
-@ @ args :
-@ @ r4 : ROW
-@ @ r5 : COL
-@ .global led_setdir
-@ .type led_setdir, %function
-@ led_setdir:
-@   bl led_setdir_r
-@   bl led_setdir_c
+@ @ Wave top view for stage 3
+@ @ args
+@ @ r6 : how many times to show rain drops
+@ @ r7 : set time limit
+
+@ .global wave_11_topview
+@ .type wave_11_topview, %function
+@ wave_11_topview:
+@   mov r4, 1
+@   mov r5, 1
+@   push {lr}
+@   bl blink_200ms
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_11_topviewrepeat1
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_11_topviewrepeat2
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_11_topviewrepeat3
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_11_topviewrepeat4
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_11_topviewrepeat5
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_topviewrepeat_44
+@   pop {lr}
+
 @   bx lr
-@ .size led_setdir, . -led_setdir
+@ .size wave_11_topview, . -wave_11_topview
 
-@ @ led row, col set direction
-@ @ Clear ROW DIR
-@ @ args :
-@ @ r4 : ROW
-@ @ r5 : COL
-@ .global led_cleardir
-@ .type led_cleardir, %function
-@ led_cleardir:
-@   bl led_cleardir_r
-@   bl led_cleardir_c
+@ .type wave_11_topviewrepeat1, % function
+@ wave_11_topviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topviewrepeat1
+@   pop {lr}
+
 @   bx lr
-@ .size led_cleardir, . -led_cleardir
+@ .size wave_11_topviewrepeat1, . -wave_11_topviewrepeat1
 
-@ @ Set ROW DIR
-@ @ args :
-@ @ r4 : ROW
-@ .global led_setdir_r
-@ .type led_setdir_r, %function
-@ led_setdir_r:
-@   ldr r1, =GPIO_P0
-@   ldr r2, [r1, GPIO_PX_DIR]
+@ .type wave_11_topview1, %function
+@ wave_11_topview1:
+@   mov r4, 1
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r4, #1
-@   IT EQ
-@   bleq led_setbit_r1
-@   cmp r4, #2
-@   IT EQ
-@   bleq led_setbit_r2
-@   cmp r4, #3
-@   IT EQ
-@   bleq led_setbit_r3
-@   cmp r4, #4
-@   IT EQ
-@   bleq led_setbit_r4
-@   cmp r4, #5
-@   IT EQ
-@   bleq led_setbit_r5
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_DIR]
+@   mov r4, 2
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setdir_r, . -led_setdir_r
+@ .size wave_11_topview1, . -wave_11_topview1
 
-@ @ Clear ROW DIR
-@ @ args :
-@ @ r4 : ROW
-@ .global led_cleardir_r
-@ .type led_cleardir_r, %function
-@ led_cleardir_r:
-@   ldr r1, =GPIO_P0
-@   ldr r2, [r1, GPIO_PX_DIR]
+@ .type wave_11_topviewrepeat2, % function
+@ wave_11_topviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topviewrepeat2
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r4, #1
-@   IT EQ
-@   bleq led_clearbit_r1
-@   cmp r4, #2
-@   IT EQ
-@   bleq led_clearbit_r2
-@   cmp r4, #3
-@   IT EQ
-@   bleq led_clearbit_r3
-@   cmp r4, #4
-@   IT EQ
-@   bleq led_clearbit_r4
-@   cmp r4, #5
-@   IT EQ
-@   bleq led_clearbit_r5
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_DIR]
 @   bx lr
-@ .size led_cleardir_r, . -led_cleardir_r
+@ .size wave_11_topviewrepeat2, . -wave_11_topviewrepeat2
 
-@ @ Set COL DIR
-@ @ args :
-@ @ r5 : COL
-@ .global led_setdir_c
-@ .type led_setdir_c, %function
-@ led_setdir_c:
-@   str lr, [sp]
-@   cmp r5, #1
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #2
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #3
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #4
-@   IT EQ
-@   bleq set_GPIO_P1
-@   cmp r5, #5
-@   IT EQ
-@   bleq set_GPIO_P0
-@   ldr lr, [sp]
-@   ldr r2, [r1, GPIO_PX_DIR]
+@ .type wave_11_topview2, %function
+@ wave_11_topview2:
+@   mov r4, 1
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r5, #1
-@   IT EQ
-@   bleq led_setbit_c1
-@   cmp r5, #2
-@   IT EQ
-@   bleq led_setbit_c2
-@   cmp r5, #3
-@   IT EQ
-@   bleq led_setbit_c3
-@   cmp r5, #4
-@   IT EQ
-@   bleq led_setbit_c4
-@   cmp r5, #5
-@   IT EQ
-@   bleq led_setbit_c5
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_DIR]
+@   mov r4, 2
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setdir_c, . -led_setdir_c
+@ .size wave_11_topview2, . -wave_11_topview2
 
-@ @ Clear COL DIR
-@ @ args :
-@ @ r5 : COL
-@ .global led_cleardir_c
-@ .type led_cleardir_c, %function
-@ led_cleardir_c:
-@   str lr, [sp]
-@   cmp r5, #1
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #2
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #3
-@   IT EQ
-@   bleq set_GPIO_P0
-@   cmp r5, #4
-@   IT EQ
-@   bleq set_GPIO_P1
-@   cmp r5, #5
-@   IT EQ
-@   bleq set_GPIO_P0
-@   ldr lr, [sp]
-@   ldr r2, [r1, GPIO_PX_DIR]
+@ .type wave_11_topviewrepeat3, % function
+@ wave_11_topviewrepeat3:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topview3
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topviewrepeat3
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r5, #1
-@   IT EQ
-@   bleq led_clearbit_c1
-@   cmp r5, #2
-@   IT EQ
-@   bleq led_clearbit_c2
-@   cmp r5, #3
-@   IT EQ
-@   bleq led_clearbit_c3
-@   cmp r5, #4
-@   IT EQ
-@   bleq led_clearbit_c4
-@   cmp r5, #5
-@   IT EQ
-@   bleq led_clearbit_c5
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_DIR]
 @   bx lr
-@ .size led_cleardir_c, . -led_cleardir_c
+@ .size wave_11_topviewrepeat3, . -wave_11_topviewrepeat3
 
-@ .type set_GPIO_P0, %function
-@ set_GPIO_P0:
-@   ldr r1, =GPIO_P0
+@ .type wave_11_topview3, %function
+@ wave_11_topview3:
+@   mov r4, 1
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size set_GPIO_P0, . -set_GPIO_P0
+@ .size wave_11_topview3, . -wave_11_topview3
 
-@ .type set_GPIO_P1, %function
-@ set_GPIO_P1:
-@   ldr r1, =GPIO_P1
+@ .type wave_11_topviewrepeat4, % function
+@ wave_11_topviewrepeat4:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topview4
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topviewrepeat4
+@   pop {lr}
+
 @   bx lr
-@ .size set_GPIO_P1, . -set_GPIO_P1
+@ .size wave_11_topviewrepeat4, . -wave_11_topviewrepeat4
 
-@ @ Led ROW1~5 ON
-@ @ args :
-@ @ r4 : ROW
-@ .global led_on
-@ .type led_on, %function
-@ led_on:
-@   ldr r1, =GPIO_P0
-@   ldr r2, [r1, GPIO_PX_OUT]
+@ .type wave_11_topview4, %function
+@ wave_11_topview4:
+@   mov r4, 1
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r4, #1
-@   IT EQ
-@   bleq led_setbit_r1
-@   cmp r4, #2
-@   IT EQ
-@   bleq led_setbit_r1
-@   cmp r4, #3
-@   IT EQ
-@   bleq led_setbit_r1
-@   cmp r4, #4
-@   IT EQ
-@   bleq led_setbit_r1
-@   cmp r4, #5
-@   IT EQ
-@   bleq led_setbit_r1
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_OUT]
+@   mov r4, 2
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_on, . -led_on
+@ .size wave_11_topview4, . -wave_11_topview4
 
-@ @ Led ROW1~5 OFF
-@ @ args :
-@ @ r4 : ROW
-@ .global led_off
-@ .type led_off, %function
-@ led_off:
-@   ldr r1, =GPIO_P0
-@   ldr r2, [r1, GPIO_PX_OUT]
+@ .type wave_11_topviewrepeat5, % function
+@ wave_11_topviewrepeat5:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topview5
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_11_topviewrepeat5
+@   pop {lr}
 
-@   str lr, [sp]
-@   cmp r4, #1
-@   IT EQ
-@   bleq led_clearbit_r1
-@   cmp r4, #2
-@   IT EQ
-@   bleq led_clearbit_r1
-@   cmp r4, #3
-@   IT EQ
-@   bleq led_clearbit_r1
-@   cmp r4, #4
-@   IT EQ
-@   bleq led_clearbit_r1
-@   cmp r4, #5
-@   IT EQ
-@   bleq led_clearbit_r1
-@   ldr lr, [sp]
-  
-@   str r2, [r1, GPIO_PX_OUT]
 @   bx lr
-@ .size led_off, . -led_off
+@ .size wave_11_topviewrepeat5, . -wave_11_topviewrepeat5
 
-@ @ Set bit of ROW 1~5, COL 1~5
-@ .type led_setbit_r1, %function
-@ led_setbit_r1:
-@   ldr r3, =ROW1
-@   orr r2, r2, r3
+@ .type wave_11_topview5, %function
+@ wave_11_topview5:
+@   mov r4, 3
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_r1, . -led_setbit_r1
+@ .size wave_11_topview5, . -wave_11_topview5
 
-@ .type led_setbit_r2, %function
-@ led_setbit_r2:
-@   ldr r3, =ROW2
-@   orr r2, r2, r3
+@ @ Wave top view for stage 3
+@ @ args
+@ @ r6 : how many times to show rain drops
+@ @ r7 : set time limit
+@ .global wave_22_topview
+@ .type wave_22_topview, %function
+@ wave_22_topview:
+@   mov r4, 2
+@   mov r5, 2
+@   push {lr}
+@   bl blink_200ms
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_22_topviewrepeat1
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_22_topviewrepeat2
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_22_topviewrepeat3
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_topviewrepeat_44
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_r2, . -led_setbit_r2
+@ .size wave_22_topview, . -wave_22_topview
 
-@ .type led_setbit_r3, %function
-@ led_setbit_r3:
-@   ldr r3, =ROW3
-@   orr r2, r2, r3
+@ .type wave_22_topviewrepeat1, % function
+@ wave_22_topviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topviewrepeat1
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_r3, . -led_setbit_r3
+@ .size wave_22_topviewrepeat1, . -wave_22_topviewrepeat1
 
-@ .type led_setbit_r4, %function
-@ led_setbit_r4:
-@   ldr r3, =ROW4
-@   orr r2, r2, r3
+@ .type wave_22_topview1, %function
+@ wave_22_topview1:
+@   mov r4, 1
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_r4, . -led_setbit_r4
+@ .size wave_22_topview1, . -wave_22_topview1
 
-@ .type led_setbit_r5, %function
-@ led_setbit_r5:
-@   ldr r3, =ROW5
-@   orr r2, r2, r3
+@ .type wave_22_topviewrepeat2, % function
+@ wave_22_topviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topviewrepeat2
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_r5, . -led_setbit_r5
+@ .size wave_22_topviewrepeat2, . -wave_22_topviewrepeat2
 
-@ .type led_setbit_c1, %function
-@ led_setbit_c1:
-@   ldr r3, =COL1
-@   orr r2, r2, r3
+@ .type wave_22_topview2, %function
+@ wave_22_topview2:
+@   mov r4, 1
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_c1, . -led_setbit_c1
+@ .size wave_22_topview2, . -wave_22_topview2
 
-@ .type led_setbit_c2, %function
-@ led_setbit_c2:
-@   ldr r3, =COL2
-@   orr r2, r2, r3
+@ .type wave_22_topviewrepeat3, % function
+@ wave_22_topviewrepeat3:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topview3
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_22_topviewrepeat3
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_c2, . -led_setbit_c2
+@ .size wave_22_topviewrepeat3, . -wave_22_topviewrepeat3
 
-@ .type led_setbit_c3, %function
-@ led_setbit_c3:
-@   ldr r3, =COL3
-@   orr r2, r2, r3
+@ .type wave_22_topview3, %function
+@ wave_22_topview3:
+@   mov r4, 1
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_c3, . -led_setbit_c3
+@ .size wave_22_topview3, . -wave_22_topview3
 
-@ .type led_setbit_c4, %function
-@ led_setbit_c4:
-@   ldr r3, =COL4
-@   orr r2, r2, r3
+@ @ Wave top view for stage 3
+@ @ args
+@ @ r6 : how many times to show rain drops
+@ @ r7 : set time limit
+@ .global wave_33_topview
+@ .type wave_33_topview, %function
+@ wave_33_topview:
+@   mov r4, 3
+@   mov r5, 3
+@   push {lr}
+@   bl blink_200ms
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_33_topviewrepeat1
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_33_topviewrepeat2
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_c4, . -led_setbit_c4
+@ .size wave_33_topview, . -wave_33_topview
 
-@ .type led_setbit_c5, %function
-@ led_setbit_c5:
-@   ldr r3, =COL5
-@   orr r2, r2, r3
+@ .type wave_33_topviewrepeat1, % function
+@ wave_33_topviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_33_topview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_33_topviewrepeat1
+@   pop {lr}
+
 @   bx lr
-@ .size led_setbit_c5, . -led_setbit_c5
+@ .size wave_33_topviewrepeat1, . -wave_33_topviewrepeat1
 
-@ @ Clear bit of ROW 1~5, COL 1~5
-@ .type led_clearbit_r1, %function
-@ led_clearbit_r1:
-@   ldr r3, =ROW1
-@   bic r2, r2, r3
+@ .type wave_33_topview1, %function
+@ wave_33_topview1:
+@   mov r4, 2
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_r1, . -led_clearbit_r1
+@ .size wave_33_topview1, . -wave_33_topview1
 
-@ .type led_clearbit_r2, %function
-@ led_clearbit_r2:
-@   ldr r3, =ROW2
-@   bic r2, r2, r3
+@ .type wave_33_topviewrepeat2, % function
+@ wave_33_topviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_33_topview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_33_topviewrepeat2
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_r2, . -led_clearbit_r2
+@ .size wave_33_topviewrepeat2, . -wave_33_topviewrepeat2
 
-@ .type led_clearbit_r3, %function
-@ led_clearbit_r3:
-@   ldr r3, =ROW3
-@   bic r2, r2, r3
+@ .type wave_33_topview2, %function
+@ wave_33_topview2:
+@   mov r4, 1
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_r3, . -led_clearbit_r3
+@ .size wave_33_topview2, . -wave_33_topview2
 
-@ .type led_clearbit_r4, %function
-@ led_clearbit_r4:
-@   ldr r3, =ROW4
-@   bic r2, r2, r3
+@ .global wave_44_topview
+@ .type wave_44_topview, %function
+@ wave_44_topview:
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink_200ms
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_44_topviewrepeat1
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_44_topviewrepeat2
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_44_topviewrepeat3
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_topviewrepeat_22
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_r4, . -led_clearbit_r4
+@ .size wave_44_topview, . -wave_44_topview
 
-@ .type led_clearbit_r5, %function
-@ led_clearbit_r5:
-@   ldr r3, =ROW5
-@   bic r2, r2, r3
+@ .type wave_44_topviewrepeat1, % function
+@ wave_44_topviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topviewrepeat1
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_r5, . -led_clearbit_r5
+@ .size wave_44_topviewrepeat1, . -wave_44_topviewrepeat1
 
-@ .type led_clearbit_c1, %function
-@ led_clearbit_c1:
-@   ldr r3, =COL1
-@   bic r2, r2, r3
+@ .type wave_44_topview1, %function
+@ wave_44_topview1:
+@   mov r4, 3
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_c1, . -led_clearbit_c1
+@ .size wave_44_topview1, . -wave_44_topview1
 
-@ .type led_clearbit_c2, %function
-@ led_clearbit_c2:
-@   ldr r3, =COL2
-@   bic r2, r2, r3
+@ .type wave_44_topviewrepeat2, % function
+@ wave_44_topviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topviewrepeat2
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_c2, . -led_clearbit_c2
+@ .size wave_44_topviewrepeat2, . -wave_44_topviewrepeat2
 
-@ .type led_clearbit_c3, %function
-@ led_clearbit_c3:
-@   ldr r3, =COL3
-@   bic r2, r2, r3
+@ .type wave_44_topview2, %function
+@ wave_44_topview2:
+@   mov r4, 2
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_c3, . -led_clearbit_c3
+@ .size wave_44_topview2, . -wave_44_topview2
 
-@ .type led_clearbit_c4, %function
-@ led_clearbit_c4:
-@   ldr r3, =COL4
-@   bic r2, r2, r3
+@ .type wave_44_topviewrepeat3, % function
+@ wave_44_topviewrepeat3:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topview3
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_44_topviewrepeat3
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_c4, . -led_clearbit_c4
+@ .size wave_44_topviewrepeat3, . -wave_44_topviewrepeat3
 
-@ .type led_clearbit_c5, %function
-@ led_clearbit_c5:
-@   ldr r3, =COL5
-@   bic r2, r2, r3
+@ .type wave_44_topview3, %function
+@ wave_44_topview3:
+@   mov r4, 1
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
 @   bx lr
-@ .size led_clearbit_c5, . -led_clearbit_c5
+@ .size wave_44_topview3, . -wave_44_topview3
 
-@ .data
+@ .global wave_55_topview
+@ .type wave_55_topview, %function
+@ wave_55_topview:
+@   mov r4, 5
+@   mov r5, 5
+@   push {lr}
+@   bl blink_200ms
+@   pop {lr}
 
-@ .set ROW1, 0x200000
-@ .set ROW2, 0x400000
-@ .set ROW3, 0x8000
-@ .set ROW4, 0x1000000
-@ .set ROW5, 0x80000
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_55_topviewrepeat1
+@   pop {lr}
 
-@ .set COL1, 0x10000000
-@ .set COL2, 0x800
-@ .set COL3, 0x80000000
-@ .set COL4, 0x20
-@ .set COL5, 0x40000000
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_55_topviewrepeat2
+@   pop {lr}
 
-@ .set GPIO_P0, 0x50000000
-@ .set GPIO_P1, 0x50000300
-@ .set GPIO_PX_OUT, 0x504     @ index by pin number
-@ .set GPIO_PX_DIR, 0x514     @ index by pin number
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_55_topviewrepeat3
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_55_topviewrepeat4
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_55_topviewrepeat5
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wave_topviewrepeat_22
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview, . -wave_55_topview
+
+@ .type wave_55_topviewrepeat1, % function
+@ wave_55_topviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topviewrepeat1
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topviewrepeat1, . -wave_55_topviewrepeat1
+
+@ .type wave_55_topview1, %function
+@ wave_55_topview1:
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview1, . -wave_55_topview1
+
+@ .type wave_55_topviewrepeat2, % function
+@ wave_55_topviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topviewrepeat2
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topviewrepeat2, . -wave_55_topviewrepeat2
+
+@ .type wave_55_topview2, %function
+@ wave_55_topview2:
+@   mov r4, 3
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview2, . -wave_55_topview2
+
+@ .type wave_55_topviewrepeat3, % function
+@ wave_55_topviewrepeat3:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topview3
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topviewrepeat3
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topviewrepeat3, . -wave_55_topviewrepeat3
+
+@ .type wave_55_topview3, %function
+@ wave_55_topview3:
+@   mov r4, 2
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview3, . -wave_55_topview3
+
+@ .type wave_55_topviewrepeat4, % function
+@ wave_55_topviewrepeat4:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topview4
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topviewrepeat4
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topviewrepeat4, . -wave_55_topviewrepeat4
+
+@ .type wave_55_topview4, %function
+@ wave_55_topview4:
+@   mov r4, 1
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 1
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview4, . -wave_55_topview4
+
+@ .type wave_55_topviewrepeat5, % function
+@ wave_55_topviewrepeat5:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topview5
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_55_topviewrepeat5
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topviewrepeat5, . -wave_55_topviewrepeat5
+
+@ .type wave_55_topview5, %function
+@ wave_55_topview5:
+@   mov r4, 1
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 3
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_55_topview5, . -wave_55_topview5
+
+@ .type wave_topviewrepeat_22, % function
+@ wave_topviewrepeat_22:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_topview_22
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_topviewrepeat_22
+@   pop {lr}
+
+@   bx lr
+@ .size wave_topviewrepeat_22, . -wave_topviewrepeat_22
+
+@ .type wave_topview_22, %function
+@ wave_topview_22:
+@   mov r4, 1
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 2
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_topview_22, . -wave_topview_22
+
+@ .type wave_topviewrepeat_44, % function
+@ wave_topviewrepeat_44:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wave_topview_44
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wave_topviewrepeat_44
+@   pop {lr}
+
+@   bx lr
+@ .size wave_topviewrepeat_44, . -wave_topviewrepeat_44
+
+@ .type wave_topview_44, %function
+@ wave_topview_44:
+@   mov r4, 4
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wave_topview_44, . -wave_topview_44
+
+@ @ Wave side view for stage 2
+@ @ args
+@ @ r6 : how many times to show rain drops
+@ @ r7 : set time limit
+@ .global wavesideview
+@ .type wavesideview, %function
+@ wavesideview:
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wavesideviewrepeat1
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wavesideviewrepeat2
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wavesideviewrepeat3
+@   pop {lr}
+
+@   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl wavesideviewrepeat4
+@   pop {lr}
+
+@   push {lr}
+@   bl time_delay_500ms
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideview, . -wavesideview
+
+@ .type wavesideviewrepeat1, % function
+@ wavesideviewrepeat1:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideview1
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideviewrepeat1
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideviewrepeat1, . -wavesideviewrepeat1
+
+@ .type wavesideview1, %function
+@ wavesideview1:
+@   mov r4, 4
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideview1, . -wavesideview1
+
+@ .type wavesideviewrepeat2, % function
+@ wavesideviewrepeat2:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideview2
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideviewrepeat2
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideviewrepeat2, . -wavesideviewrepeat2
+
+@ .type wavesideview2, %function
+@ wavesideview2:
+@   mov r4, 4
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 3
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideview2, . -wavesideview2
+
+@ .type wavesideviewrepeat3, % function
+@ wavesideviewrepeat3:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideview3
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideviewrepeat3
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideviewrepeat3, . -wavesideviewrepeat3
+
+@ .type wavesideview3, %function
+@ wavesideview3:
+@   mov r4, 4
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 4
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 2
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 4
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideview3, . -wavesideview3
+
+@ .type wavesideviewrepeat4, % function
+@ wavesideviewrepeat4:
+@   push {lr}
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideview4
+@   cmp r7, r6
+@   IT GE
+@   subge r7, r7, 1
+@   cmp r7, r6
+@   IT GE
+@   blge wavesideviewrepeat4
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideviewrepeat4, . -wavesideviewrepeat4
+
+@ .type wavesideview4, %function
+@ wavesideview4:
+@   mov r4, 5
+@   mov r5, 1
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   mov r4, 5
+@   mov r5, 5
+@   push {lr}
+@   bl blink
+@   pop {lr}
+
+@   bx lr
+@ .size wavesideview4, . -wavesideview4
