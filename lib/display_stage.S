@@ -8,136 +8,122 @@
 @ args
 @ r6 : how many times to show rain drops
 @ r7 : set time limit
-.global wave_44_topview
-.type wave_44_topview, %function
-wave_44_topview:
-  mov r4, 4
-  mov r5, 4
+
+.global wave_11_topview
+.type wave_11_topview, %function
+wave_11_topview:
+  mov r4, 1
+  mov r5, 1
   push {lr}
   bl blink_200ms
   pop {lr}
 
   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
   push {lr}
-  bl wave_44_topviewrepeat1
+  bl wave_11_topviewrepeat1
   pop {lr}
 
   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
   push {lr}
-  bl wave_44_topviewrepeat2
+  bl wave_11_topviewrepeat2
   pop {lr}
 
   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
   push {lr}
-  bl wave_44_topviewrepeat3
+  bl wave_11_topviewrepeat3
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_11_topviewrepeat4
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_11_topviewrepeat5
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_topviewrepeat_44
   pop {lr}
 
   bx lr
-.size wave_44_topview, . -wave_44_topview
+.size wave_11_topview, . -wave_11_topview
 
-.type wave_44_topviewrepeat1, % function
-wave_44_topviewrepeat1:
+.type wave_11_topviewrepeat1, % function
+wave_11_topviewrepeat1:
   push {lr}
   cmp r7, r6
   IT GE
-  blge wave_44_topview1
+  blge wave_11_topview1
   cmp r7, r6
   IT GE
   subge r7, r7, 1
   cmp r7, r6
   IT GE
-  blge wave_44_topviewrepeat1
+  blge wave_11_topviewrepeat1
   pop {lr}
 
   bx lr
-.size wave_44_topviewrepeat1, . -wave_44_topviewrepeat1
+.size wave_11_topviewrepeat1, . -wave_11_topviewrepeat1
 
-.type wave_44_topview1, %function
-wave_44_topview1:
-  mov r4, 3
-  mov r5, 3
+.type wave_11_topview1, %function
+wave_11_topview1:
+  mov r4, 1
+  mov r5, 2
   push {lr}
   bl blink
   pop {lr}
 
-  mov r4, 3
-  mov r5, 4
+  mov r4, 2
+  mov r5, 1
   push {lr}
   bl blink
   pop {lr}
 
-  mov r4, 3
-  mov r5, 5
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 4
-  mov r5, 3
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 4
-  mov r5, 5
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 5
-  mov r5, 3
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 5
-  mov r5, 4
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 5
-  mov r5, 5
+  mov r4, 2
+  mov r5, 2
   push {lr}
   bl blink
   pop {lr}
 
   bx lr
-.size wave_44_topview1, . -wave_44_topview1
+.size wave_11_topview1, . -wave_11_topview1
 
-.type wave_44_topviewrepeat2, % function
-wave_44_topviewrepeat2:
+.type wave_11_topviewrepeat2, % function
+wave_11_topviewrepeat2:
   push {lr}
   cmp r7, r6
   IT GE
-  blge wave_44_topview2
+  blge wave_11_topview2
   cmp r7, r6
   IT GE
   subge r7, r7, 1
   cmp r7, r6
   IT GE
-  blge wave_44_topviewrepeat2
+  blge wave_11_topviewrepeat2
   pop {lr}
 
   bx lr
-.size wave_44_topviewrepeat2, . -wave_44_topviewrepeat2
+.size wave_11_topviewrepeat2, . -wave_11_topviewrepeat2
 
-.type wave_44_topview2, %function
-wave_44_topview2:
-  mov r4, 2
+.type wave_11_topview2, %function
+wave_11_topview2:
+  mov r4, 1
   mov r5, 3
   push {lr}
   bl blink
   pop {lr}
 
   mov r4, 2
-  mov r5, 4
+  mov r5, 3
   push {lr}
   bl blink
   pop {lr}
 
-  mov r4, 2
-  mov r5, 5
+  mov r4, 3
+  mov r5, 1
   push {lr}
   bl blink
   pop {lr}
@@ -148,58 +134,80 @@ wave_44_topview2:
   bl blink
   pop {lr}
 
-  mov r4, 4
-  mov r5, 2
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 5
-  mov r5, 2
-  push {lr}
-  bl blink
-  pop {lr}
-
   bx lr
-.size wave_44_topview2, . -wave_44_topview2
+.size wave_11_topview2, . -wave_11_topview2
 
-.type wave_44_topviewrepeat3, % function
-wave_44_topviewrepeat3:
+.type wave_11_topviewrepeat3, % function
+wave_11_topviewrepeat3:
   push {lr}
   cmp r7, r6
   IT GE
-  blge wave_44_topview3
+  blge wave_11_topview3
   cmp r7, r6
   IT GE
   subge r7, r7, 1
   cmp r7, r6
   IT GE
-  blge wave_44_topviewrepeat3
+  blge wave_11_topviewrepeat3
   pop {lr}
 
   bx lr
-.size wave_44_topviewrepeat3, . -wave_44_topviewrepeat3
+.size wave_11_topviewrepeat3, . -wave_11_topviewrepeat3
 
-.type wave_44_topview3, %function
-wave_44_topview3:
-  mov r4, 1
-  mov r5, 2
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 1
-  mov r5, 3
-  push {lr}
-  bl blink
-  pop {lr}
-
+.type wave_11_topview3, %function
+wave_11_topview3:
   mov r4, 1
   mov r5, 4
   push {lr}
   bl blink
   pop {lr}
 
+  mov r4, 2
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_11_topview3, . -wave_11_topview3
+
+.type wave_11_topviewrepeat4, % function
+wave_11_topviewrepeat4:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_11_topview4
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_11_topviewrepeat4
+  pop {lr}
+
+  bx lr
+.size wave_11_topviewrepeat4, . -wave_11_topviewrepeat4
+
+.type wave_11_topview4, %function
+wave_11_topview4:
   mov r4, 1
   mov r5, 5
   push {lr}
@@ -207,19 +215,25 @@ wave_44_topview3:
   pop {lr}
 
   mov r4, 2
-  mov r5, 1
+  mov r5, 5
   push {lr}
   bl blink
   pop {lr}
 
   mov r4, 3
-  mov r5, 1
+  mov r5, 4
   push {lr}
   bl blink
   pop {lr}
 
   mov r4, 4
-  mov r5, 1
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 2
   push {lr}
   bl blink
   pop {lr}
@@ -231,7 +245,47 @@ wave_44_topview3:
   pop {lr}
 
   bx lr
-.size wave_44_topview3, . -wave_44_topview3
+.size wave_11_topview4, . -wave_11_topview4
+
+.type wave_11_topviewrepeat5, % function
+wave_11_topviewrepeat5:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_11_topview5
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_11_topviewrepeat5
+  pop {lr}
+
+  bx lr
+.size wave_11_topviewrepeat5, . -wave_11_topviewrepeat5
+
+.type wave_11_topview5, %function
+wave_11_topview5:
+  mov r4, 3
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_11_topview5, . -wave_11_topview5
 
 @ Wave top view for stage 3
 @ args
@@ -259,6 +313,11 @@ wave_22_topview:
   ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
   push {lr}
   bl wave_22_topviewrepeat3
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_topviewrepeat_44
   pop {lr}
 
   bx lr
@@ -430,7 +489,7 @@ wave_22_topview3:
   pop {lr}
 
   mov r4, 4
-  mov r5, 5
+  mov r5, 4
   push {lr}
   bl blink
   pop {lr}
@@ -449,12 +508,6 @@ wave_22_topview3:
 
   mov r4, 5
   mov r5, 3
-  push {lr}
-  bl blink
-  pop {lr}
-
-  mov r4, 5
-  mov r5, 4
   push {lr}
   bl blink
   pop {lr}
@@ -651,6 +704,576 @@ wave_33_topview2:
 
   bx lr
 .size wave_33_topview2, . -wave_33_topview2
+
+.global wave_44_topview
+.type wave_44_topview, %function
+wave_44_topview:
+  mov r4, 4
+  mov r5, 4
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_44_topviewrepeat1
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_44_topviewrepeat2
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_44_topviewrepeat3
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_topviewrepeat_22
+  pop {lr}
+
+  bx lr
+.size wave_44_topview, . -wave_44_topview
+
+.type wave_44_topviewrepeat1, % function
+wave_44_topviewrepeat1:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_44_topview1
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_44_topviewrepeat1
+  pop {lr}
+
+  bx lr
+.size wave_44_topviewrepeat1, . -wave_44_topviewrepeat1
+
+.type wave_44_topview1, %function
+wave_44_topview1:
+  mov r4, 3
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_44_topview1, . -wave_44_topview1
+
+.type wave_44_topviewrepeat2, % function
+wave_44_topviewrepeat2:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_44_topview2
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_44_topviewrepeat2
+  pop {lr}
+
+  bx lr
+.size wave_44_topviewrepeat2, . -wave_44_topviewrepeat2
+
+.type wave_44_topview2, %function
+wave_44_topview2:
+  mov r4, 2
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_44_topview2, . -wave_44_topview2
+
+.type wave_44_topviewrepeat3, % function
+wave_44_topviewrepeat3:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_44_topview3
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_44_topviewrepeat3
+  pop {lr}
+
+  bx lr
+.size wave_44_topviewrepeat3, . -wave_44_topviewrepeat3
+
+.type wave_44_topview3, %function
+wave_44_topview3:
+  mov r4, 1
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 1
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 1
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_44_topview3, . -wave_44_topview3
+
+.global wave_55_topview
+.type wave_55_topview, %function
+wave_55_topview:
+  mov r4, 5
+  mov r5, 5
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_55_topviewrepeat1
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_55_topviewrepeat2
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_55_topviewrepeat3
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_55_topviewrepeat4
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_55_topviewrepeat5
+  pop {lr}
+
+  ldr r7, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl wave_topviewrepeat_22
+  pop {lr}
+
+  bx lr
+.size wave_55_topview, . -wave_55_topview
+
+.type wave_55_topviewrepeat1, % function
+wave_55_topviewrepeat1:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_55_topview1
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_55_topviewrepeat1
+  pop {lr}
+
+  bx lr
+.size wave_55_topviewrepeat1, . -wave_55_topviewrepeat1
+
+.type wave_55_topview1, %function
+wave_55_topview1:
+  mov r4, 4
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_55_topview1, . -wave_55_topview1
+
+.type wave_55_topviewrepeat2, % function
+wave_55_topviewrepeat2:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_55_topview2
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_55_topviewrepeat2
+  pop {lr}
+
+  bx lr
+.size wave_55_topviewrepeat2, . -wave_55_topviewrepeat2
+
+.type wave_55_topview2, %function
+wave_55_topview2:
+  mov r4, 3
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_55_topview2, . -wave_55_topview2
+
+.type wave_55_topviewrepeat3, % function
+wave_55_topviewrepeat3:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_55_topview3
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_55_topviewrepeat3
+  pop {lr}
+
+  bx lr
+.size wave_55_topviewrepeat3, . -wave_55_topviewrepeat3
+
+.type wave_55_topview3, %function
+wave_55_topview3:
+  mov r4, 2
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_55_topview3, . -wave_55_topview3
+
+.type wave_55_topviewrepeat4, % function
+wave_55_topviewrepeat4:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_55_topview4
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_55_topviewrepeat4
+  pop {lr}
+
+  bx lr
+.size wave_55_topviewrepeat4, . -wave_55_topviewrepeat4
+
+.type wave_55_topview4, %function
+wave_55_topview4:
+  mov r4, 1
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 1
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 4
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_55_topview4, . -wave_55_topview4
+
+.type wave_55_topviewrepeat5, % function
+wave_55_topviewrepeat5:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_55_topview5
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_55_topviewrepeat5
+  pop {lr}
+
+  bx lr
+.size wave_55_topviewrepeat5, . -wave_55_topviewrepeat5
+
+.type wave_55_topview5, %function
+wave_55_topview5:
+  mov r4, 1
+  mov r5, 3
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 3
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_55_topview5, . -wave_55_topview5
+
+.type wave_topviewrepeat_22, % function
+wave_topviewrepeat_22:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_topview_22
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_topviewrepeat_22
+  pop {lr}
+
+  bx lr
+.size wave_topviewrepeat_22, . -wave_topviewrepeat_22
+
+.type wave_topview_22, %function
+wave_topview_22:
+  mov r4, 1
+  mov r5, 2
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 2
+  mov r5, 1
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_topview_22, . -wave_topview_22
+
+.type wave_topviewrepeat_44, % function
+wave_topviewrepeat_44:
+  push {lr}
+  cmp r7, r6
+  IT GE
+  blge wave_topview_44
+  cmp r7, r6
+  IT GE
+  subge r7, r7, 1
+  cmp r7, r6
+  IT GE
+  blge wave_topviewrepeat_44
+  pop {lr}
+
+  bx lr
+.size wave_topviewrepeat_44, . -wave_topviewrepeat_44
+
+.type wave_topview_44, %function
+wave_topview_44:
+  mov r4, 4
+  mov r5, 5
+  push {lr}
+  bl blink
+  pop {lr}
+
+  mov r4, 5
+  mov r5, 4
+  push {lr}
+  bl blink
+  pop {lr}
+
+  bx lr
+.size wave_topview_44, . -wave_topview_44
 
 @ Wave side view for stage 2
 @ args
