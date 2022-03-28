@@ -12,9 +12,9 @@
 time_delay_1s:
   nop
   ldr r0, =TIME_ONE_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_1s, . -time_delay_1s
 
@@ -25,9 +25,9 @@ time_delay_1s:
 time_delay_500ms:
   nop
   ldr r0, =TIME_FIVEHUNDRED_MILI_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_500ms, . -time_delay_500ms
 
@@ -38,9 +38,9 @@ time_delay_500ms:
 time_delay_200ms:
   nop
   ldr r0, =TIME_TWOHUNDRED_MILI_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_200ms, . -time_delay_200ms
 
@@ -51,9 +51,9 @@ time_delay_200ms:
 time_delay_100ms:
   nop
   ldr r0, =TIME_HUNDRED_MILI_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_100ms, . -time_delay_100ms
 
@@ -64,9 +64,9 @@ time_delay_100ms:
 time_delay_5ms:
   nop
   ldr r0, =TIME_FIVE_MILI_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_5ms, . -time_delay_5ms
 
@@ -77,9 +77,9 @@ time_delay_5ms:
 time_delay_1ms:
   nop
   ldr r0, =TIME_ONE_MILI_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_1ms, . -time_delay_1ms
 
@@ -90,9 +90,9 @@ time_delay_1ms:
 time_delay_5us:
   nop
   ldr r0, =TIME_FIVE_MICRO_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_5us, . -time_delay_5us
 
@@ -103,9 +103,9 @@ time_delay_5us:
 time_delay_1us:
   nop
   ldr r0, =TIME_ONE_MICRO_SEC
-  str lr, [sp]
+  push {lr}
   bl time_delay
-  ldr lr, [sp]
+  pop {lr}
   bx lr
 .size time_delay_1us, . -time_delay_1us
 

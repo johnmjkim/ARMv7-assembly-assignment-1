@@ -4,6 +4,21 @@
 @ Australian National University
 .syntax unified
 
+.global blink_200ms
+.type blink_200ms, % function
+blink_200ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_200ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_200ms
+  pop {lr}
+  bx lr
+.size blink_200ms, . -blink_200ms
+
 @ led row, col set direction
 @ Set ROW DIR
 @ args :
@@ -12,8 +27,10 @@
 .global led_setdir
 .type led_setdir, %function
 led_setdir:
+  push {lr}
   bl led_setdir_r
   bl led_setdir_c
+  pop {lr}
   bx lr
 .size led_setdir, . -led_setdir
 
@@ -25,21 +42,22 @@ led_setdir:
 .global led_cleardir
 .type led_cleardir, %function
 led_cleardir:
+  push {lr}
   bl led_cleardir_r
   bl led_cleardir_c
+  pop {lr}
   bx lr
 .size led_cleardir, . -led_cleardir
 
 @ Set ROW DIR
 @ args :
 @ r4 : ROW
-.global led_setdir_r
 .type led_setdir_r, %function
 led_setdir_r:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_DIR]
 
-  str lr, [sp]
+  push {lr}
   cmp r4, #1
   IT EQ
   bleq led_setbit_r1
@@ -55,7 +73,7 @@ led_setdir_r:
   cmp r4, #5
   IT EQ
   bleq led_setbit_r5
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
@@ -64,13 +82,12 @@ led_setdir_r:
 @ Clear ROW DIR
 @ args :
 @ r4 : ROW
-.global led_cleardir_r
 .type led_cleardir_r, %function
 led_cleardir_r:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_DIR]
 
-  str lr, [sp]
+  push {lr}
   cmp r4, #1
   IT EQ
   bleq led_clearbit_r1
@@ -86,7 +103,7 @@ led_cleardir_r:
   cmp r4, #5
   IT EQ
   bleq led_clearbit_r5
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
@@ -95,10 +112,9 @@ led_cleardir_r:
 @ Set COL DIR
 @ args :
 @ r5 : COL
-.global led_setdir_c
 .type led_setdir_c, %function
 led_setdir_c:
-  str lr, [sp]
+  push {lr}
   cmp r5, #1
   IT EQ
   bleq set_GPIO_P0
@@ -114,10 +130,10 @@ led_setdir_c:
   cmp r5, #5
   IT EQ
   bleq set_GPIO_P0
-  ldr lr, [sp]
+  pop {lr}
   ldr r2, [r1, GPIO_PX_DIR]
 
-  str lr, [sp]
+  push {lr}
   cmp r5, #1
   IT EQ
   bleq led_setbit_c1
@@ -133,7 +149,7 @@ led_setdir_c:
   cmp r5, #5
   IT EQ
   bleq led_setbit_c5
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
@@ -142,10 +158,9 @@ led_setdir_c:
 @ Clear COL DIR
 @ args :
 @ r5 : COL
-.global led_cleardir_c
 .type led_cleardir_c, %function
 led_cleardir_c:
-  str lr, [sp]
+  push {lr}
   cmp r5, #1
   IT EQ
   bleq set_GPIO_P0
@@ -161,10 +176,10 @@ led_cleardir_c:
   cmp r5, #5
   IT EQ
   bleq set_GPIO_P0
-  ldr lr, [sp]
+  pop {lr}
   ldr r2, [r1, GPIO_PX_DIR]
 
-  str lr, [sp]
+  push {lr}
   cmp r5, #1
   IT EQ
   bleq led_clearbit_c1
@@ -180,7 +195,7 @@ led_cleardir_c:
   cmp r5, #5
   IT EQ
   bleq led_clearbit_c5
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_DIR]
   bx lr
@@ -207,7 +222,7 @@ led_on:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_OUT]
 
-  str lr, [sp]
+  push {lr}
   cmp r4, #1
   IT EQ
   bleq led_setbit_r1
@@ -223,7 +238,7 @@ led_on:
   cmp r4, #5
   IT EQ
   bleq led_setbit_r1
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_OUT]
   bx lr
@@ -238,7 +253,7 @@ led_off:
   ldr r1, =GPIO_P0
   ldr r2, [r1, GPIO_PX_OUT]
 
-  str lr, [sp]
+  push {lr}
   cmp r4, #1
   IT EQ
   bleq led_clearbit_r1
@@ -254,7 +269,7 @@ led_off:
   cmp r4, #5
   IT EQ
   bleq led_clearbit_r1
-  ldr lr, [sp]
+  pop {lr}
   
   str r2, [r1, GPIO_PX_OUT]
   bx lr
