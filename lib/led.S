@@ -64,6 +64,49 @@ blink_100ms:
   bx lr
 .size blink_100ms, . -blink_100ms
 
+.global blink_50ms
+.type blink_50ms, % function
+blink_50ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_50ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_50ms
+  pop {lr}
+  bx lr
+.size blink_50ms, . -blink_50ms
+
+.global blink_10ms
+.type blink_10ms, % function
+blink_10ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_10ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_10ms
+  pop {lr}
+  bx lr
+.size blink_10ms, . -blink_10ms
+
+.global blink
+.type blink, % function
+blink:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl led_off
+  bl led_cleardir
+  pop {lr}
+  bx lr
+.size blink, . -blink
+
 @ led row, col set direction
 @ Set ROW DIR
 @ args :
@@ -273,16 +316,16 @@ led_on:
   bleq led_setbit_r1
   cmp r4, #2
   IT EQ
-  bleq led_setbit_r1
+  bleq led_setbit_r2
   cmp r4, #3
   IT EQ
-  bleq led_setbit_r1
+  bleq led_setbit_r3
   cmp r4, #4
   IT EQ
-  bleq led_setbit_r1
+  bleq led_setbit_r4
   cmp r4, #5
   IT EQ
-  bleq led_setbit_r1
+  bleq led_setbit_r5
   pop {lr}
   
   str r2, [r1, GPIO_PX_OUT]
@@ -304,16 +347,16 @@ led_off:
   bleq led_clearbit_r1
   cmp r4, #2
   IT EQ
-  bleq led_clearbit_r1
+  bleq led_clearbit_r2
   cmp r4, #3
   IT EQ
-  bleq led_clearbit_r1
+  bleq led_clearbit_r3
   cmp r4, #4
   IT EQ
-  bleq led_clearbit_r1
+  bleq led_clearbit_r4
   cmp r4, #5
   IT EQ
-  bleq led_clearbit_r1
+  bleq led_clearbit_r5
   pop {lr}
   
   str r2, [r1, GPIO_PX_OUT]

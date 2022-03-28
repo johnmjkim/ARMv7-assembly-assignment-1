@@ -57,6 +57,32 @@ time_delay_100ms:
   bx lr
 .size time_delay_100ms, . -time_delay_100ms
 
+.global time_delay_50ms
+.type time_delay_50ms, %function
+@ args:
+@ r0: amount of time
+time_delay_50ms:
+  nop
+  ldr r0, =TIME_FIFTY_MILI_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_50ms, . -time_delay_50ms
+
+.global time_delay_10ms
+.type time_delay_10ms, %function
+@ args:
+@ r0: amount of time
+time_delay_10ms:
+  nop
+  ldr r0, =TIME_TEN_MILI_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_10ms, . -time_delay_10ms
+
 .global time_delay_5ms
 .type time_delay_5ms, %function
 @ args:
@@ -127,6 +153,8 @@ time_delay:
 .set TIME_FIVE_MICRO_SEC, 0x50
 .set TIME_ONE_MILI_SEC, 0x3E80
 .set TIME_FIVE_MILI_SEC, 0x13880
+.set TIME_TEN_MILI_SEC, 0x27100
+.set TIME_FIFTY_MILI_SEC, 0xC3500
 .set TIME_HUNDRED_MILI_SEC, 0x186A00
 .set TIME_TWOHUNDRED_MILI_SEC, 0x20D400
 .set TIME_FIVEHUNDRED_MILI_SEC, 0x7A1200
@@ -137,6 +165,8 @@ time_delay:
 .global TIME_FIVE_MICRO_SEC
 .global TIME_ONE_MILI_SEC
 .global TIME_FIVE_MILI_SEC
+.global TIME_TEN_MILI_SEC
+.global TIME_FIFTY_MILI_SEC
 .global TIME_HUNDRED_MILI_SEC
 .global TIME_TWOHUNDRED_MILI_SEC
 .global TIME_FIVEHUNDRED_MILI_SEC
