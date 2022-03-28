@@ -122,6 +122,45 @@ time_delay_1ms:
   bx lr
 .size time_delay_1ms, . -time_delay_1ms
 
+.global time_delay_500us
+.type time_delay_500us, %function
+@ args:
+@ r0: amount of time
+time_delay_500us:
+  nop
+  ldr r0, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_500us, . -time_delay_500us
+
+.global time_delay_100us
+.type time_delay_100us, %function
+@ args:
+@ r0: amount of time
+time_delay_100us:
+  nop
+  ldr r0, =TIME_HUNDRED_MICRO_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_100us, . -time_delay_100us
+
+.global time_delay_10us
+.type time_delay_10us, %function
+@ args:
+@ r0: amount of time
+time_delay_10us:
+  nop
+  ldr r0, =TIME_TEN_MICRO_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_10us, . -time_delay_10us
+
 .global time_delay_5us
 .type time_delay_5us, %function
 @ args:
@@ -164,6 +203,9 @@ time_delay:
 @ Microbit (16MHz) Timer
 .set TIME_ONE_MICRO_SEC, 0x10
 .set TIME_FIVE_MICRO_SEC, 0x50
+.set TIME_TEN_MICRO_SEC, 0xA0
+.set TIME_HUNDRED_MICRO_SEC, 0x640
+.set TIME_FIVEHUNDRED_MICRO_SEC, 0x1F40
 .set TIME_ONE_MILI_SEC, 0x3E80
 .set TIME_FIVE_MILI_SEC, 0x13880
 .set TIME_TEN_MILI_SEC, 0x27100
@@ -177,6 +219,9 @@ time_delay:
 @ Set all timers global
 .global TIME_ONE_MICRO_SEC
 .global TIME_FIVE_MICRO_SEC
+.global TIME_TEN_MICRO_SEC
+.global TIME_HUNDRED_MICRO_SEC
+.global TIME_FIVEHUNDRED_MICRO_SEC
 .global TIME_ONE_MILI_SEC
 .global TIME_FIVE_MILI_SEC
 .global TIME_TEN_MILI_SEC
