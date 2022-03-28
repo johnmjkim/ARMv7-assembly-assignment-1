@@ -79,6 +79,21 @@ blink_50ms:
   bx lr
 .size blink_50ms, . -blink_50ms
 
+.global blink_20ms
+.type blink_20ms, % function
+blink_20ms:
+  nop
+  push {lr}
+  bl led_setdir
+  bl led_on
+  bl time_delay_20ms
+  bl led_off
+  bl led_cleardir
+  bl time_delay_20ms
+  pop {lr}
+  bx lr
+.size blink_20ms, . -blink_20ms
+
 .global blink_10ms
 .type blink_10ms, % function
 blink_10ms:

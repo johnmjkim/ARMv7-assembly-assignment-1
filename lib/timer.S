@@ -70,6 +70,19 @@ time_delay_50ms:
   bx lr
 .size time_delay_50ms, . -time_delay_50ms
 
+.global time_delay_20ms
+.type time_delay_20ms, %function
+@ args:
+@ r0: amount of time
+time_delay_20ms:
+  nop
+  ldr r0, =TIME_FIFTY_MILI_SEC
+  push {lr}
+  bl time_delay
+  pop {lr}
+  bx lr
+.size time_delay_20ms, . -time_delay_20ms
+
 .global time_delay_10ms
 .type time_delay_10ms, %function
 @ args:
@@ -154,6 +167,7 @@ time_delay:
 .set TIME_ONE_MILI_SEC, 0x3E80
 .set TIME_FIVE_MILI_SEC, 0x13880
 .set TIME_TEN_MILI_SEC, 0x27100
+.set TIME_TWENTY_MILI_SEC, 0x4E200
 .set TIME_FIFTY_MILI_SEC, 0xC3500
 .set TIME_HUNDRED_MILI_SEC, 0x186A00
 .set TIME_TWOHUNDRED_MILI_SEC, 0x20D400
@@ -166,6 +180,7 @@ time_delay:
 .global TIME_ONE_MILI_SEC
 .global TIME_FIVE_MILI_SEC
 .global TIME_TEN_MILI_SEC
+.global TIME_TWENTY_MILI_SEC
 .global TIME_FIFTY_MILI_SEC
 .global TIME_HUNDRED_MILI_SEC
 .global TIME_TWOHUNDRED_MILI_SEC
