@@ -4,7 +4,7 @@
 @ Australian National University
 .syntax unified
 
-@ Wave top view for stage 3
+@ Wave side, top view for stage 3
 @ args
 @ r6 : counting times
 @ r7 : calculate maximum led numbers
@@ -13,6 +13,85 @@
 @ r10 : set time limit
 @ r11 : row data register
 @ r12 : col data register
+
+@ .global wave_2_sideview
+@ .type wave_2_sideview, %function
+@ wave_2_sideview:
+@   ldr r11, =wave_2_1_r
+@   ldr r12, =wave_2_1_c
+@   ldr r7, [r11]
+@   mov r8, 4
+@   mul r7, r7, r8
+
+@   ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl display_wave
+@   pop {lr}
+
+@   ldr r11, =wave_2_2_r
+@   ldr r12, =wave_2_2_c
+@   ldr r7, [r11]
+@   mov r8, 4
+@   mul r7, r7, r8
+
+@   ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+@   push {lr}
+@   bl display_wave
+@   pop {lr}
+
+@   bx lr
+@ .size wave_2_sideview, . -wave_2_sideview
+
+.global wave_3_sideview
+.type wave_3_sideview, %function
+wave_3_sideview:
+  ldr r11, =wave_3_1_r
+  ldr r12, =wave_3_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_3_2_r
+  ldr r12, =wave_3_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_3_3_r
+  ldr r12, =wave_3_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_3_4_r
+  ldr r12, =wave_3_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_3_sideview, . -wave_3_sideview
+
 .global wave_11_topview
 .type wave_11_topview, %function
 wave_11_topview:
@@ -203,6 +282,152 @@ wave_24_topview:
   bx lr
 .size wave_24_topview, . -wave_24_topview
 
+.global wave_33_topview
+.type wave_33_topview, %function
+wave_33_topview:
+  mov r4, 3
+  mov r5, 3
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_33_1_r
+  ldr r12, =wave_33_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_33_2_r
+  ldr r12, =wave_33_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_33_topview, . -wave_33_topview
+
+.global wave_42_topview
+.type wave_42_topview, %function
+wave_42_topview:
+  mov r4, 4
+  mov r5, 2
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_42_1_r
+  ldr r12, =wave_42_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_42_2_r
+  ldr r12, =wave_42_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_42_3_r
+  ldr r12, =wave_42_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_42_4_r
+  ldr r12, =wave_42_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_42_topview, . -wave_42_topview
+
+.global wave_44_topview
+.type wave_44_topview, %function
+wave_44_topview:
+  mov r4, 4
+  mov r5, 4
+  push {lr}
+  bl blink_200ms
+  pop {lr}
+
+  ldr r11, =wave_44_1_r
+  ldr r12, =wave_44_1_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_44_2_r
+  ldr r12, =wave_44_2_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_44_3_r
+  ldr r12, =wave_44_3_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  ldr r11, =wave_44_4_r
+  ldr r12, =wave_44_4_c
+  ldr r7, [r11]
+  mov r8, 4
+  mul r7, r7, r8
+
+  ldr r10, =TIME_FIVEHUNDRED_MICRO_SEC
+  push {lr}
+  bl display_wave
+  pop {lr}
+
+  bx lr
+.size wave_24_topview, . -wave_24_topview
+
 .global wave_55_topview
 .type wave_55_topview, %function
 wave_55_topview:
@@ -335,6 +560,27 @@ wave_blink:
 @ Data example : a, b, c, d, ...
 @ a : number of ROW/COL set
 @ b, c, d : ROW/COL pin number
+
+@ Data for stage 2
+.data
+wave_3_1_r:
+  .word 4, 4, 5, 5, 5
+wave_3_1_c:
+  .word 4, 3, 2, 3, 4
+wave_3_2_r:
+  .word 7, 4, 4, 5, 5, 5, 5
+wave_3_2_c:
+  .word 7, 2, 4, 1, 2, 3, 4, 5
+wave_3_3_r:
+  .word 6, 4, 4, 5, 5, 5, 5
+wave_3_3_c:
+  .word 6, 1, 5, 1, 2, 4, 5
+wave_3_4_r:
+  .word 2, 5, 5
+wave_3_4_c:
+  .word 2, 1, 5
+
+@ Data for stage 3
 .data
 wave_11_1_r:
   .word 3, 1, 2, 2
@@ -396,6 +642,52 @@ wave_24_4_r:
   .word 2, 4, 5
 wave_24_4_c:
   .word 2, 1, 2
+
+.data
+wave_33_1_r:
+  .word 8, 2, 2, 2, 3, 3, 4, 4, 4
+wave_33_1_c:
+  .word 8, 2, 3, 4, 2, 4, 2, 3, 4
+wave_33_2_r:
+  .word 12, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 5
+wave_33_2_c:
+  .word 12, 2, 3, 4, 1, 5, 1, 5, 1, 5, 2, 3, 4
+
+.data
+wave_42_1_r:
+  .word 8, 3, 3, 3, 4, 4, 5, 5, 5
+wave_42_1_c:
+  .word 8, 1, 2, 3, 1, 3, 1, 2, 3
+wave_42_2_r:
+  .word 6, 2, 2, 2, 3, 4, 5
+wave_42_2_c:
+  .word 6, 1, 2, 3, 4, 4, 4
+wave_42_3_r:
+  .word 7, 1, 1, 1, 2, 3, 4, 5
+wave_42_3_c:
+  .word 7, 1, 2, 3, 4, 5, 5, 5
+wave_42_4_r:
+  .word 2, 1, 2
+wave_42_4_c:
+  .word 2, 4, 5
+
+  .data
+wave_44_1_r:
+  .word 8, 3, 3, 3, 4, 4, 5, 5, 5
+wave_44_1_c:
+  .word 8, 3, 4, 5, 3, 5, 3, 4, 5
+wave_44_2_r:
+  .word 6, 2, 2, 2, 3, 4, 5
+wave_44_2_c:
+  .word 6, 3, 4, 5, 2, 2, 2
+wave_44_3_r:
+  .word 7, 1, 1, 1, 2, 3, 4, 5
+wave_44_3_c:
+  .word 7, 3, 4, 5, 2, 1, 1, 1
+wave_44_4_r:
+  .word 2, 1, 2
+wave_44_4_c:
+  .word 2, 2, 1
 
 .data
 wave_55_1_r:

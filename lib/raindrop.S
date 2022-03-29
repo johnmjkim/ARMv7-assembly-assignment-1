@@ -11,7 +11,6 @@
 .type slowraindrop, %function
 slowraindrop:
   mov r4, 1
-  mov r5, 3
   push {lr}
   bl slowraindrop_col
   pop {lr}
