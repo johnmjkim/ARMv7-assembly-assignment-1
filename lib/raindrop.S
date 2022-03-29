@@ -94,7 +94,7 @@ raindrop_col:
   push {lr}
   cmp r4, #5
   IT LE
-  blle blink_20ms
+  blle blink_10ms
   cmp r4, #5
   IT LE
   addle r4, r4, 1
