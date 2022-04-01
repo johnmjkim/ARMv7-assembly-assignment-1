@@ -3,13 +3,13 @@
 
 .type main, %function
 main:
-  b stage1
+ b stage1
 
 stage1:
   nop
   @ Stage 1
   @ Show raindrops twice
-  mov r6, 0
+  @ mov r6, 0
   push {lr}
   bl raindrops
   pop {lr}
@@ -61,7 +61,6 @@ stage4:
   @ Stage 4
   @ Show slow rain drop at side view
   @ Show wave at top view at random places
-  mov r6, 0
   push {lr}
   bl raindrops
   pop {lr}
