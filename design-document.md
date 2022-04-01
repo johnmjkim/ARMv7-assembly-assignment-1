@@ -8,7 +8,7 @@ email: johnmjkim1216@gmail.com
 
 The board uses led to express water drop, wave created by water drop and reflection of wave by front wall. The show is divided into a total of five different stages as in the Figure.1 below. Each stages are divided and executed at the different branches.
 
-[Figure.1 Raindrops](/assets/raindrops_image.png)
+![Figure.1 Raindrops](/assets/raindrops_image.png)
 
 # How : LED Light On and Off with ARM-v7 Assembly
 
