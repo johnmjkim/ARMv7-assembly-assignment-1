@@ -1,6 +1,7 @@
 @ raindrop.S
 @ raindrop library for the BBC micro:bit v2
 @ By John Kim, 2022
+@ Library uses similar template with audio.S provided at week 5 lab
 @ Australian National University
 .syntax unified
 
