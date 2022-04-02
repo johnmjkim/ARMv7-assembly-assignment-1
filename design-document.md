@@ -33,6 +33,7 @@ The data arrays of row and column number of pins are called to light on and off 
 The project contains custom libraries and they are all stored into the src folder. Each role of libraries is organized as in the Figure.3 below.
 
 Figure.3 Role of Libraries
+
 ![Figure.3 Raindrops](assets/roleoflibraries_image.png)
 
 Libraries are used to improve code maintenance. It is very inefficient to have all necessary functions in the <code>main.S</code> file as too many lines of code would waste time on debugging codes. 
@@ -47,11 +48,13 @@ All functions require which row and column number needed to be set where those a
 For the setting or clearing bits, we need to logically shift the 0b1 left side of numbers according to the pin address. And then ORR or BIC operators are used to set or clear bits of the original bits. How the ORR or BIC operator works is illustrated in Figure.4.
 
 Figure.4 ORR, BIC Operator
+
 ![Figure.4 ORR, BIC Operator](assets/orrbicoperator_image.png)
 
 Data arrays such as pin map address and time amount, are also included in each library. Pin map address data array is used to get the address of GPIO. The corresponding address of the pin can also be found in Figure.5. It allows reducing the amount of code lines by repeating the same function with different variables called from addresses.
 
 Figure.5 Address of Pin
+
 ![Figure.5 Address of Pin](assets/addressofpin_image.png)
 
 ## Limitation
