@@ -16,9 +16,9 @@ Overall, the light show changes over time and engages a viewer for 40 seconds. T
 
 # How : LED Light On and Off with ARM-v7 Assembly
 
-Light blink function is made with several versions by the time delay. For example, the function to turn on LED for 500ms and turn off after the time delay. Time delay counts a loop of 500ms by using a timer that is set on <code>timer.S</code> library based on the knowledge that microbit uses 16MHz clock.
+Light blink function is made with several versions by the time delay. The function turns on the LED for a certain amount of time and turns off after the time delay. Time delay counts a loop by using a timer that is set on <code>timer.S</code> library based on the knowledge that microbit uses 16MHz clock.
 
-Light display of various patterns like the shape of a wave requires turning on multiple LEDs simultaneously. The data arrays of row and column number of pins are called to light on and off multiple LEDs. This was achieved by blinking particular sets of LEDs consecutively and repeated for a certain amount of loop. This allows the viewer to see as if multiple LEDs are lighted simultaneously. Figure_2 is shown to help understanding simultaneous display.
+Light display of various patterns requires turning on LEDs simultaneously. The data arrays of row and column numbers are called to blink LEDs. This was achieved by blinking LEDs consecutively and repeated for a certain amount of loops. This allows the viewer to see as if multiple LEDs are lighted simultaneously. Figure_2 is shown to help understanding simultaneous display.
 
 Figure_2. LED Display
 
@@ -34,15 +34,15 @@ Figure_3. Role of Libraries
 
 ![Figure_3. Raindrops](assets/roleoflibraries_image.png)
 
-Libraries are used to improve code maintenance. It is very inefficient to have all necessary functions in the <code>main.S</code> file as too many lines of code would waste time on debugging codes. Also, it is easy to recognize which registers are used for functions within a certain library. This reduces the possibility that registers are mixed up when storing memory.
+Libraries are used to prevent all functions in the <code>main.S</code> file at once. It increases code maintenance by reducing code lines and making easy to recognize which registers are used for functions within a certain library. This reduces the possibility that registers are mixed up when storing memory.
 
-Functions are set global only if those are used in <code>main.S</code>. This makes sure the encapsulation of functions in the library and allows better code maintenance by showing only necessary functions to call.
+Functions only used in <code>main.S</code> are set global. This makes sure the encapsulation of functions in the library and allows better code maintenance by showing only necessary functions to call.
 
 Each library basically contains functions which use a load-twiddle-store pattern. It loads the address of a certain pin, executes a necessary calculation and stores the bit data into the address again.
 
-All functions require which row and column number needed to be set where those are stored on the register. In this way, I do not need to type in address of each row and column based on the pin address of microbit, which can be found in V2 pinmap of [this document](https://tech.microbit.org/hardware/schematic/#v2-pinmap). Only the calling function at <code>main.S</code> enables setting or clearing bits in the pin. 
+Function allows to set or clear bits according to the address of each row and column based on the pin address of microbit, which can be found in the V2 pinmap of [this document](https://tech.microbit.org/hardware/schematic/#v2-pinmap). Only the calling function at <code>main.S</code> with row and column numbers enables setting or clearing bits in the pin.
 
-For the setting or clearing bits, we need to logically shift the 0b1 left side of numbers according to the pin address. And then ORR or BIC operators are used to set or clear bits of the original bits. How the ORR or BIC operator works is illustrated in Figure_4.
+Logical left shift was implemented to set or clear bits and ORR and BIC operators were implemented to compute final bits. How the ORR or BIC operator works is illustrated in Figure_4.
 
 Figure_4. ORR, BIC Operator
 
